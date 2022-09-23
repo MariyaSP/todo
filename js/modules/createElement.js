@@ -82,6 +82,7 @@ const tr = document.createElement('tr');
       tr.classList.add('do_task');
       tr.setAttribute('id', id)
       const tdNumber = document.createElement('td');
+      tdNumber.classList.add('number');
       tdNumber.textContent = i + 1;
       const tdTask = document.createElement('td');
       tdTask.classList.add('task');

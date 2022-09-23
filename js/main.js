@@ -3,8 +3,8 @@ import todoStorage from "./modules/todoStorage.js";
 import control from "./modules/control.js";
 
 const {renderToDo, renderTacks} = render;
-const { getStorage, setStorage } = todoStorage;
-const { taskControl, delControl, success } = control;
+const { getStorage } = todoStorage;
+const { taskControl, delControl, success, reNumber } = control;
 const init = () =>{
     const userName = prompt('Введите ваше имя');
     const { list, btnAdd , btnClear, inputSearch, formSearch } = renderToDo();
@@ -16,18 +16,17 @@ const init = () =>{
         const target = e.target;
         const idTask = target.closest('.do_task').getAttribute('id');
         if(target.closest('.btn-danger')){
-             delControl(idTask, userName);
+             delControl(idTask, userName, list);
              target.closest('.do_task').remove();
-        } else if(target.closest('.btn-success')){
+            reNumber(list.querySelectorAll('.number'));
 
+        } else if(target.closest('.btn-success')){
             success(idTask, userName, target);
             const td = target.closest('.do_task').querySelector('.task');
             td.classList.add('text-decoration-line-through');
-            console.log(td);
             target.closest('.do_task').classList.add('table-success');
             target.closest('.do_task').classList.remove('table-light');
 
-            console.log();
         }
     });
 };

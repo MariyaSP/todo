@@ -30,13 +30,14 @@ const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list 
     btnClear.addEventListener('click', inputClear);
 };
 
-const delControl = (id, user) =>{
+const delControl = (id, user, list) =>{
     const tasks = getStorage(user);
     tasks.forEach((task, i) => {
         if( task.id === id ){
             tasks.splice(i, 1);
         }
     });
+
     localStorage.setItem(user, JSON.stringify(tasks));
 
 };
@@ -47,12 +48,17 @@ const success = ( id, user) => {
             task.status = 'success';
         }
     });
-    //elem.classList.add('table-success');
     localStorage.setItem(user, JSON.stringify(tasks));
 
+};
+const reNumber = (taskList) => {
+    taskList.forEach((elem, i) => {
+    elem.textContent = i + 1;
+    });
 };
 export default {
     taskControl,
     delControl,
     success,
+    reNumber,
 };
