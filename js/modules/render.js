@@ -4,7 +4,7 @@ const { createContainer, createHeader, createSearchForm, createTable, createRow}
 const renderToDo = () => {
     const container = createContainer();
     const header = createHeader();
-    const {formSearch, btnAdd, btnClear, inputSearch } = createSearchForm();
+    const {formSearch, btnAdd, btnClear, inputSearch,taskType } = createSearchForm();
     const table = createTable();
     const tableWrapper = document.createElement('div');
     tableWrapper.classList.add('table-wrapper');
@@ -17,6 +17,7 @@ const renderToDo = () => {
         btnClear,
         inputSearch,
         formSearch,
+        taskType
     }
 };
 const renderTacks = (elem, data) => {

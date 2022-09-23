@@ -18,6 +18,12 @@ const createSearchForm = () =>{
     inputSearch.type = 'text';
     inputSearch.classList.add('form-control');
     labelSearch.append(inputSearch);
+    const taskType = document.createElement('select');
+    taskType.classList.add('form-select');
+    taskType.innerHTML = ` <option value = 'table-light'> Обычная </option>
+                            <option value = 'table-warning'> Важная </option>
+                            <option value = 'table-danger'> Срочная </option>
+                    `;
     const buttonGroup = createButtonsGroup([
         {
             className: 'btn btn-primary me-3 btn_add',
@@ -30,13 +36,14 @@ const createSearchForm = () =>{
             text: 'Очистить',
         },
     ]);
-    formSearch.append(labelSearch);
+    formSearch.append(labelSearch, taskType);
     formSearch.append(...buttonGroup.btns);
      return {
         formSearch,
         btnAdd: buttonGroup.btns[0],
         btnClear: buttonGroup.btns[1],
         inputSearch,
+        taskType,
     };
 };
 const createButtonsGroup = params => {
@@ -72,12 +79,13 @@ const createTable = () => {
 
     return table;
 };
-const createRow = ({id, task, status}, i ) => {
+const createRow = ({id, task, taskType, status, }, i ) => {
 const tr = document.createElement('tr');
-        if(status === 'danger'){
-            tr.classList.add('table-light');
-        } else {
+        if(status === 'success'){
+
             tr.classList.add('table-success');
+        } else {
+            tr.classList.add(taskType);
         }
       tr.classList.add('do_task');
       tr.setAttribute('id', id)
@@ -93,13 +101,18 @@ const tr = document.createElement('tr');
       const tdStatus = document.createElement('td');
       tdStatus.textContent = status;
       const tdAction = document.createElement('td');
+      tdAction.classList.add('tdAction');
       const btnDel = document.createElement('button');
       btnDel.classList.add('btn', 'btn-danger');
       btnDel.textContent = "Удалить";
-        const btnDone = document.createElement('button');
-        btnDone.classList.add('btn', 'btn-success');
-        btnDone.textContent = "Завершить";
-        tdAction.append(btnDel, btnDone);
+      const btnDone = document.createElement('button');
+      btnDone.classList.add('btn', 'btn-success');
+      btnDone.textContent = "Завершить";
+      const btnEdit = document.createElement('button');
+      btnEdit.classList.add('btn', 'btn-info');
+      btnEdit.textContent = "Редактировать";
+      tdAction.append(btnDel, btnDone, btnEdit);
+
         tr.append(tdNumber, tdTask, tdStatus, tdAction);
 return tr;
 };

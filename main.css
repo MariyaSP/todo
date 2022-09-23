@@ -1,4 +1,9 @@
 
-.btn_add:disabled{
-    background: #ccc;
+.tdAction{
+    display: flex;
+    gap: 10px;
+}
+.form-select{
+    width: 30%;
+    margin-right: 10px;
 }

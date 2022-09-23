@@ -2,7 +2,7 @@ import todoStorage from "./todoStorage.js";
 import createElement from "./createElement.js";
 const { getStorage, setStorage } = todoStorage;
 const { addNewTask } = createElement;
-const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list ) => {
+const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list, taskType ) => {
     const inputCheck = () =>{
     btnAdd.disabled = inputSearch.value === '';
     btnClear.disabled = inputSearch.value === '';
@@ -18,7 +18,9 @@ const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list 
     const newTask = {
         id: Math.random().toString().substring(2, 10),
         task: inputSearch.value,
+        taskType: taskType.value,
         status: 'danger',
+
     };
      const newNumber = getStorage(userName).length;
     addNewTask( newTask, newNumber, list);
@@ -56,9 +58,20 @@ const reNumber = (taskList) => {
     elem.textContent = i + 1;
     });
 };
+const editTask = (newText, id, user) =>{
+    console.log(user);
+    const tasks = getStorage(user);
+    tasks.forEach((task, i) => {
+        if( task.id === id ){
+            task.task = newText;
+        }
+    });
+    localStorage.setItem(user, JSON.stringify(tasks));
+};
 export default {
     taskControl,
     delControl,
     success,
     reNumber,
+    editTask,
 };
