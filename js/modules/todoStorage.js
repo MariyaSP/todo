@@ -1,12 +1,22 @@
-const getStorage = (key) => {
-    let data;
-    data = localStorage.getItem(key) !== null ?  JSON.parse(localStorage[key]) : [];
+const getStorage = (name) => {
+    let data = [];
+   if (localStorage.getItem('tasks') !== null){
+      JSON.parse(localStorage['tasks']).forEach( task => {
+          if(task.name === name){
+              data.push(task);
+          }});
+   }
     return  data;
 };
-const setStorage = (key, item) => {
-    let taskList = getStorage(key);
-    taskList.push(item);
-    localStorage[key] = JSON.stringify(taskList);
+const setStorage = (item) => {
+    let taskList;
+      if (localStorage.getItem('tasks') !== null) {
+        taskList = JSON.parse(localStorage.getItem('tasks'));
+    } else {
+        taskList = [];
+    }
+        taskList.push(item);
+    localStorage.tasks = JSON.stringify(taskList);
 };
 
 export default {

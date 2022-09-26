@@ -5,6 +5,8 @@ import control from "./modules/control.js";
 const {renderToDo, renderTacks} = render;
 const { getStorage } = todoStorage;
 const { taskControl, delControl, success, reNumber, editTask } = control;
+
+
 const init = () =>{
     const userName = prompt('Введите ваше имя', 'N' );
     const { list, btnAdd , btnClear, inputSearch, formSearch, taskType } = renderToDo();
@@ -17,17 +19,33 @@ const init = () =>{
         const idTask = target.closest('.do_task').getAttribute('id');
         if(target.closest('.btn-danger')){
             if( confirm('Не уверен - не удаляй!')){
-                delControl(idTask, userName, list);
+                delControl(idTask, userName);
                 target.closest('.do_task').remove();
                 reNumber(list.querySelectorAll('.number'));
             }
         } else if(target.closest('.btn-success')){
-            success(idTask, userName, target);
+            let flag;
+            let typeTask;
+            const tasks = getStorage(userName);
+            console.log(tasks);
+            tasks.forEach((elem) =>{
+                if(elem.id === idTask){
+                    typeTask = elem.taskType;
+                }
+            });
+
             const td = target.closest('.do_task').querySelector('.task');
-            td.classList.add('text-decoration-line-through');
-            const test = target.closest('.do_task').classList.value.split(' ');
-            target.closest('.do_task').classList.add('table-success');
-            target.closest('.do_task').classList.remove(test[0]);
+            if(target.closest('.do_task').classList.contains('table-success')){
+                    flag = 'danger';
+                    }
+            else {
+                flag = 'success';
+            }
+                td.classList.toggle('text-decoration-line-through');
+                target.closest('.do_task').classList.toggle(typeTask);
+                target.closest('.do_task').classList.toggle('table-success');
+
+            success(idTask, userName, flag);
 
         } else if(target.closest('.btn-info')){
             const trTask = target.closest('.do_task').querySelector('.task');
@@ -40,8 +58,7 @@ const init = () =>{
                         task.task = trTask.textContent;
                     }
                 });
-                console.log(tasks);
-                localStorage.setItem(userName, JSON.stringify(tasks));
+                localStorage.setItem('tasks', JSON.stringify(tasks));
             });
              }
     });

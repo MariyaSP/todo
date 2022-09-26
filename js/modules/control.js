@@ -16,57 +16,59 @@ const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list,
     btnAdd.addEventListener('click', (e) =>{
     e.preventDefault();
     const newTask = {
+        name: userName,
         id: Math.random().toString().substring(2, 10),
         task: inputSearch.value,
         taskType: taskType.value,
         status: 'danger',
-
     };
-     const newNumber = getStorage(userName).length;
+    const newNumber = getStorage('tasks').length;
     addNewTask( newTask, newNumber, list);
-    setStorage( userName, newTask);
+
+    setStorage(newTask);
     formSearch.reset();
     inputCheck();
+        reNumber(list.querySelectorAll('.number'));
     });
-
     btnClear.addEventListener('click', inputClear);
 };
 
-const delControl = (id, user, list) =>{
+const delControl = (id, user) =>{
     const tasks = getStorage(user);
+    console.log(tasks);
     tasks.forEach((task, i) => {
         if( task.id === id ){
             tasks.splice(i, 1);
         }
     });
 
-    localStorage.setItem(user, JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 
 };
-const success = ( id, user) => {
+const success = ( id, user, flag) => {
     const tasks = getStorage(user);
     tasks.forEach((task, i) => {
         if( task.id === id ){
-            task.status = 'success';
+            task.status = flag;
         }
     });
-    localStorage.setItem(user, JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 
 };
+
 const reNumber = (taskList) => {
     taskList.forEach((elem, i) => {
     elem.textContent = i + 1;
     });
 };
 const editTask = (newText, id, user) =>{
-    console.log(user);
     const tasks = getStorage(user);
-    tasks.forEach((task, i) => {
+    tasks.forEach((task) => {
         if( task.id === id ){
             task.task = newText;
         }
     });
-    localStorage.setItem(user, JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 export default {
     taskControl,

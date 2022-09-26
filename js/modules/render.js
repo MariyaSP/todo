@@ -26,6 +26,7 @@ const renderTacks = (elem, data) => {
         elem.append(...allRow);
         return allRow;
 };
+
 export default {
     renderToDo,
     renderTacks,
