@@ -20,7 +20,7 @@ const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list,
         id: Math.random().toString().substring(2, 10),
         task: inputSearch.value,
         taskType: taskType.value,
-        status: 'danger',
+        status: 'В процессе',
     };
     const newNumber = getStorage('tasks').length;
     addNewTask( newTask, newNumber, list);

@@ -81,7 +81,7 @@ const createTable = () => {
 };
 const createRow = ({id, task, taskType, status, }, i ) => {
 const tr = document.createElement('tr');
-        if(status === 'success'){
+        if(status === 'Выполнена'){
 
             tr.classList.add('table-success');
         } else {
@@ -94,7 +94,7 @@ const tr = document.createElement('tr');
       tdNumber.textContent = i + 1;
       const tdTask = document.createElement('td');
       tdTask.classList.add('task');
-    if(status !== 'danger'){
+    if(status !== 'В процессе'){
         tdTask.classList.add('text-decoration-line-through');
     }
       tdTask.textContent = task;
@@ -107,7 +107,12 @@ const tr = document.createElement('tr');
       btnDel.textContent = "Удалить";
       const btnDone = document.createElement('button');
       btnDone.classList.add('btn', 'btn-success');
-      btnDone.textContent = "Завершить";
+      if(status === "В процессе"){
+          btnDone.textContent = "Завершить";
+      } else{
+          btnDone.textContent = "Возобновить";
+      }
+
       const btnEdit = document.createElement('button');
       btnEdit.classList.add('btn', 'btn-info');
       btnEdit.textContent = "Редактировать";

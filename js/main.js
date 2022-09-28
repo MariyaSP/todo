@@ -14,6 +14,7 @@ const init = () =>{
     const allTasks = renderTacks(list, tasks);
     taskControl( btnAdd, btnClear, inputSearch, formSearch, userName, list, taskType );
 
+
     list.addEventListener('click', e => {
         const target = e.target;
         const idTask = target.closest('.do_task').getAttribute('id');
@@ -36,10 +37,13 @@ const init = () =>{
 
             const td = target.closest('.do_task').querySelector('.task');
             if(target.closest('.do_task').classList.contains('table-success')){
-                    flag = 'danger';
+                    flag = 'В процессе';
+                    target.closest('.btn-success').textContent = "Завершить";
+
                     }
             else {
-                flag = 'success';
+                flag = 'Выполнена';
+                target.closest('.btn-success').textContent = "Возобновить";
             }
                 td.classList.toggle('text-decoration-line-through');
                 target.closest('.do_task').classList.toggle(typeTask);
