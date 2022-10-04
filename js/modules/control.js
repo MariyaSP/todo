@@ -44,9 +44,7 @@ const delControl = (id, user) =>{
             tasks.splice(i, 1);
         }
     });
-
     localStorage.setItem('tasks', JSON.stringify(tasks));
-
 };
 const success = ( id, user, flag, statusText) => {
     const tasks = getStorage(user);
