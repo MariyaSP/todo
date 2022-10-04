@@ -93,12 +93,14 @@ const tr = document.createElement('tr');
       tdNumber.classList.add('number');
       tdNumber.textContent = i + 1;
       const tdTask = document.createElement('td');
+
       tdTask.classList.add('task');
     if(status !== 'В процессе'){
         tdTask.classList.add('text-decoration-line-through');
     }
       tdTask.textContent = task;
       const tdStatus = document.createElement('td');
+      tdStatus.classList.add('status');
       tdStatus.textContent = status;
       const tdAction = document.createElement('td');
       tdAction.classList.add('tdAction');

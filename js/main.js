@@ -28,8 +28,7 @@ const init = () =>{
             let flag;
             let typeTask;
             const tasks = getStorage(userName);
-            console.log(tasks);
-            tasks.forEach((elem) =>{
+                 tasks.forEach((elem) =>{
                 if(elem.id === idTask){
                     typeTask = elem.taskType;
                 }
@@ -48,8 +47,10 @@ const init = () =>{
                 td.classList.toggle('text-decoration-line-through');
                 target.closest('.do_task').classList.toggle(typeTask);
                 target.closest('.do_task').classList.toggle('table-success');
+                //const activeStatus = td.querySelector('.status');
+                const tdStatus = target.closest('.do_task').querySelector('.status');
 
-            success(idTask, userName, flag);
+            success(idTask, userName, flag, tdStatus );
 
         } else if(target.closest('.btn-info')){
             const trTask = target.closest('.do_task').querySelector('.task');

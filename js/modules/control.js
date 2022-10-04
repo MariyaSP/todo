@@ -4,8 +4,10 @@ const { getStorage, setStorage } = todoStorage;
 const { addNewTask } = createElement;
 const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list, taskType ) => {
     const inputCheck = () =>{
-    btnAdd.disabled = inputSearch.value === '';
-    btnClear.disabled = inputSearch.value === '';
+        if(userName !== null){
+            btnAdd.disabled = inputSearch.value === '';
+            btnClear.disabled = inputSearch.value === '';
+        }
     };
     const inputClear = () => {
         inputSearch.value = '';
@@ -14,6 +16,7 @@ const taskControl = ( btnAdd, btnClear, inputSearch, formSearch, userName, list,
     inputSearch.addEventListener('input', inputCheck);
 
     btnAdd.addEventListener('click', (e) =>{
+
     e.preventDefault();
     const newTask = {
         name: userName,
@@ -45,11 +48,12 @@ const delControl = (id, user) =>{
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
 };
-const success = ( id, user, flag) => {
+const success = ( id, user, flag, statusText) => {
     const tasks = getStorage(user);
     tasks.forEach((task, i) => {
         if( task.id === id ){
             task.status = flag;
+            statusText.textContent = task.status;
         }
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
